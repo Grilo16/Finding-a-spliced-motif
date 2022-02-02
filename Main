@@ -1,1 +1,25 @@
 
+from Bio_data_lib import Bio_functions as biof
+
+DataDict = biof.FastaDictionary("Dataset")
+DataList = biof.Fastalist("Dataset")
+
+mainstring = list(DataDict.values())[0]
+substring = list(DataDict.values())[1]
+
+def spliced_motif(mainstring, substring):
+    indexes = []
+
+    for base in list(substring):
+        if len(indexes) == 0:
+            x = 0
+        else:
+            x = indexes[-1]+1
+
+        y = len(mainstring)-1
+        indexes.append(mainstring.index(base,x,y))
+    result = [i+1 for i in list(map(int, indexes))]
+    format = list(map(str, result))
+    return " ".join(format)
+
+print(spliced_motif(mainstring,substring))
